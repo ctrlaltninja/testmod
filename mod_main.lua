@@ -1,5 +1,7 @@
 -- to avoid collisions with other mods, all assets specific to this mod are prefixed with "testmod.*"
 
+import "testmod/particles/glitter.lua"
+
 def_site{
 	name = "testmod.test_site",
 	ui_name = "O'Mighty Site of Testing",
@@ -23,38 +25,6 @@ def_material{
 	diffuse_texture = "data/textures/dungeon_tile_floor_dif.png",
 	specular_texture = "data/textures/dungeon_tile_floor_spec.png",
 	normal_texture = "data/textures/dungeon_tile_floor_normal.png",
-}
-
-def_particles{
-	name = "testmod.glitter",
-	emitters = {
-		{
-			shape = "box",
-			emission_rate = 500,
-			emission_time = 0,
-			max_particles = 1000,
-			spawn_burst = false,
-			object_space = false,
-			position = {0, 2.0, 0},
-			size = {4.0, 4.0, 4.0},
-			spray_angle = {0, 360},
-			velocity = {1, 3},
-			gravity = {0, 0, 0},
-			air_resistance = 5,
-			lifetime = {0.1, 0.15},
-			texture = load_texture("data/textures/particles/teleporter.png", "dxt5_srgb"),
-			blend_mode = "additive_src_alpha",
-			intensity = 1,
-			opacity = 1,
-			color = {3, 3, 3},
-			fade_in = 0.1,
-			fade_out = 0.1,
-			particle_size = {0.05, 0.5},
-			rotation_speed = 2,
-			random_rotation = true,
-			depth_bias = 0,
-		},
-	}
 }
 
 def_object{
