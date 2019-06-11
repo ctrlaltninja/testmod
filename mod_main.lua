@@ -48,6 +48,29 @@ def_object{
 	tags = { "testmod" },
 }
 
+-- ai function for super centipede's freezing attack
+function ai_centipede_freeze_attack(mob, item_name)
+	local targets = ai_find_enemies(mob, function(t) return not get_condition(t, C_FREEZE) and obj_distance(mob, t) == 1 end)
+	if targets and #targets > 0 then
+		return ai_melee(mob, item_name, targets)
+	end
+end
+
+-- use function for super centipede's freezing attack
+function use_centipede_freeze_attack(mob, item_name, target_x, target_y)
+	local map = mob.map
+	spend_item(mob, item_name)
+
+	turn_mob_towards(mob, target_x, target_y)
+
+	local target = get_mob(map, target_x, target_y)
+	shoot_projectile(map, "bolt", mob, target)
+
+	local attack_params = get_attack_params(mob, item_name)
+	execute_attack(map, mob, target_x, target_y, attack_params)
+	return true
+end
+
 -- create a new type of super centipede
 clone_object{
 	name = "testmod.super_centipede",
@@ -56,8 +79,24 @@ clone_object{
 	model_material = "testmod.test_material",
 	mob_speed = 5,
 	mob_damage_easy = 3,
-	mob_damage = 5,
+	mob_damage = 4,
 	mob_damage_hard = 5,	
+	ai_routine = {
+		ai_advance,
+		{ ai_centipede_freeze_attack, "freeze_attack", 1 },
+		ai_melee,
+	},
+	freeze_attack = {
+		flags = IF_ACTION + IF_CONSUMABLE + IF_OFFENSIVE,
+		damage = "b",	-- use mob's base damage
+		inflict = C_FREEZE,
+		on_use_item = use_centipede_freeze_attack,
+		initial_cooldown = {0, 1},
+		cooldown = {1, 3},
+		attack_sound = "centipede_poison_attack",
+	},
+	inventory = { "freeze_attack", 3 },	-- three uses of freeze attack
+	mob_description = "A new deadlier type of centipede.",
 }
 
 -- define a new ability with a custom icon
