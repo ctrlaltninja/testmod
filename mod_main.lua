@@ -20,7 +20,7 @@ def_mission{
 		"Subject: Welcome!\n\n" ..
 		"Welcome to modding Druidstone! We hope to see lots of cool mods in the coming months.",
 	locked = false,
-	loot = { "testmod.fork", "testmod.t_shirt", "testmod.necklace" },	-- contents of the loot box
+	loot = { "testmod.shovel", "testmod.t_shirt", "testmod.necklace" },	-- contents of the loot box
 }
 
 -- define a new rendering material
@@ -58,12 +58,13 @@ def_aux{
 	model_material = "testmod.test_material",
 }
 
--- define a new ability
+-- define a new ability with a custom icon
 def_ability{
 	name = "testmod.flip_coin",
 	ui_name = "Flip Coin",
 	ability_type = "b",
-	item_icon = 170,	-- TODO: custom icons!
+	item_icon = 0,
+	icon_texture = load_texture("testmod/textures/items.png", "rgba8"),
 	damage = 2,
 	range = 1,
 	flags = IF_ACTION,
@@ -84,9 +85,10 @@ def_ability{
 
 -- define a new type of weapon
 def_weapon{
-	name = "testmod.fork",
-	ui_name = "Fork",
-	item_icon = 17,
+	name = "testmod.shovel",
+	ui_name = "Shovel",
+	item_icon = 1,
+	icon_texture = load_texture("testmod/textures/items.png", "rgba8"),
 	weapon_type = "melee",
 	damage = 1,
 	anim_set = 1,
@@ -96,9 +98,9 @@ def_weapon{
 	powers = { power_damage_bonus(1, 1) },
 }
 
--- the object attached to wielder's hand when the weapon 'testmod.fork' is equipped
+-- the object attached to wielder's hand when the weapon 'testmod.shovel' is equipped
 def_object{
-	name = "testmod.fork_attachment",
+	name = "testmod.shovel_attachment",
 	model = "data/models/dagger.fbx",
 	model_can_emit_particles = true,
 	editor_ignore_asset = true,
