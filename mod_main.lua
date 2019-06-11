@@ -48,14 +48,16 @@ def_object{
 	tags = { "testmod" },
 }
 
---                                      HEALTH     ARMOR   DAMAGE                    capsule   smpl
---       name                           e  m  h    e m h   e m h   spd anim size xp  loot hgt  rad  rad  flags             immunities      misc
-def_mob{ "testmod.super_centipede",     5, 6, 8,   0,1,1,  2,5,5,  5,  4.62, 1,  5,  1,   1.0, 0.5, 0.8, MF_AMPHIBIOUS,    0,              skin = "centipede" }
-
-def_aux{
+-- create a new type of super centipede
+clone_object{
 	name = "testmod.super_centipede",
+	base_object = "centipede",
 	ui_name = "Super Centipede",
 	model_material = "testmod.test_material",
+	mob_speed = 5,
+	mob_damage_easy = 3,
+	mob_damage = 5,
+	mob_damage_hard = 5,	
 }
 
 -- define a new ability with a custom icon
