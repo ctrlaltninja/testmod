@@ -13,7 +13,7 @@ def_mission{
 	name = "testmod.test",
 	site = "testmod.test_site",
 	ui_name = "Test Mission",
-	level_filename = "test.level",
+	level_filename = "mod_data/levels/test.level",
 	letter_text =
 		"From: The devs\n" ..
 		"To: To all modders\n" ..
