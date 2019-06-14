@@ -1,6 +1,6 @@
 -- to avoid collisions with built-in game assets or other mods, all assets specific to this mod are prefixed with "testmod.*"
 
-import "testmod/particles/glitter.lua"
+import "mod_data/particles/glitter.lua"
 
 -- define a new site on the world map
 def_site{
@@ -13,7 +13,7 @@ def_mission{
 	name = "testmod.test",
 	site = "testmod.test_site",
 	ui_name = "Test Mission",
-	level_filename = "testmod/test.level",
+	level_filename = "test.level",
 	letter_text =
 		"From: The devs\n" ..
 		"To: To all modders\n" ..
@@ -26,7 +26,7 @@ def_mission{
 -- define a new rendering material
 def_material{
 	name = "testmod.test_material",
-	diffuse_texture = "testmod/textures/centipede_yellow_dif.png",
+	diffuse_texture = "mod_data/textures/centipede_yellow_dif.png",
 	specular_texture = "data/textures/dungeon_tile_floor_spec.png",
 	normal_texture = "data/textures/dungeon_tile_floor_normal.png",
 }
@@ -44,7 +44,7 @@ def_object{
 -- define a new type of object with custom model
 def_object{
 	name = "testmod.test_sphere",
-	model = "testmod/models/sphere.fbx",
+	model = "mod_data/models/sphere.fbx",
 	tags = { "testmod" },
 }
 
@@ -105,7 +105,7 @@ def_ability{
 	ui_name = "Flip Coin",
 	ability_type = "b",
 	item_icon = 0,
-	icon_texture = load_texture("testmod/textures/items.png", "rgba8"),
+	icon_texture = load_texture("mod_data/textures/items.png", "rgba8"),
 	damage = 2,
 	range = 1,
 	flags = IF_ACTION,
@@ -129,7 +129,7 @@ def_weapon{
 	name = "testmod.shovel",
 	ui_name = "Shovel",
 	item_icon = 1,
-	icon_texture = load_texture("testmod/textures/items.png", "rgba8"),
+	icon_texture = load_texture("mod_data/textures/items.png", "rgba8"),
 	weapon_type = "melee",
 	damage = 1,
 	anim_set = 1,
