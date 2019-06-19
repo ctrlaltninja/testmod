@@ -77,6 +77,11 @@ function use_centipede_freeze_attack(mob, item_name, target_x, target_y)
 	return true
 end
 
+-- a function which will be called from the level script
+function test_function()
+	print_msg("Hello from mod_main.lua!")
+end
+
 -- create a new type of super centipede
 clone_object{
 	name = "$mod.super_centipede",

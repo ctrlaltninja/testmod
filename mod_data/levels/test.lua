@@ -3,6 +3,9 @@ lever_pulled = false
 function on_init_map()
 	-- add a temporary ability for the first hero
 	set_inventory(party[1].inventory, "$mod.flip_coin", 1)
+
+	-- level scripts can call functions defined in mod_main.lua
+	test_function()
 end
 
 function on_toggle_lever(mob, lever)
