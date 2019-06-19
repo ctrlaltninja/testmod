@@ -1,7 +1,7 @@
 -- this file has been automatically generated
 
 def_particles{
-	name = "testmod.glitter",
+	name = "$mod.glitter",
 	emitters = {
 		{
 			shape = "box",

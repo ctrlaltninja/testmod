@@ -1,17 +1,23 @@
--- to avoid collisions with built-in game assets or other mods, all assets specific to this mod are prefixed with "testmod.*"
+-- To avoid collisions with built-in game assets and assets defined in other mods
+-- all mod specific asset names should be put into namespace. To avoid repeating
+-- the (possibly quite long) namespace everywhere, it's set up here once. All 
+-- occurrences of '$mod' in strings in Lua code are automatically replaced with
+-- the namespace. For example, the asset name "$mod.test_box" is converted to
+-- "ctrl_alt_ninja_testmod.test_box" when the mod is loaded into memory.
+namespace "ctrl_alt_ninja_testmod"
 
 import "mod_data/particles/glitter.lua"
 
 -- define a new site on the world map
 def_site{
-	name = "testmod.test_site",
+	name = "$mod.test_site",
 	ui_name = "O'Mighty Site of Testing",
 }
 
 -- define a new mission
 def_mission{
-	name = "testmod.test",
-	site = "testmod.test_site",
+	name = "$mod.test",
+	site = "$mod.test_site",
 	ui_name = "Test Mission",
 	level_filename = "mod_data/levels/test.level",
 	letter_text =
@@ -20,12 +26,12 @@ def_mission{
 		"Subject: Welcome!\n\n" ..
 		"Welcome to modding Druidstone! We hope to see lots of cool mods in the coming months.",
 	locked = false,
-	loot = { "testmod.shovel", "testmod.t_shirt", "testmod.necklace" },	-- contents of the loot box
+	loot = { "$mod.shovel", "$mod.t_shirt", "$mod.necklace" },	-- contents of the loot box
 }
 
 -- define a new rendering material
 def_material{
-	name = "testmod.test_material",
+	name = "$mod.test_material",
 	diffuse_texture = "mod_data/textures/centipede_yellow_dif.png",
 	specular_texture = "data/textures/dungeon_tile_floor_spec.png",
 	normal_texture = "data/textures/dungeon_tile_floor_normal.png",
@@ -33,19 +39,19 @@ def_material{
 
 -- define a new type of object that can be placed in the editor
 def_object{
-	name = "testmod.test_box",
+	name = "$mod.test_box",
 	model = "data/models/whitebox_1x1x1.fbx",
-	model_material = "testmod.test_material",
-	particle_system = "testmod.glitter",
+	model_material = "$mod.test_material",
+	particle_system = "$mod.glitter",
 	flags = F_BLOCK_MOVE + F_BLOCK_SIGHT,
-	tags = { "testmod" },
+	tags = { "$mod" },
 }
 
 -- define a new type of object with custom model
 def_object{
-	name = "testmod.test_sphere",
+	name = "$mod.test_sphere",
 	model = "mod_data/models/sphere.fbx",
-	tags = { "testmod" },
+	tags = { "$mod" },
 }
 
 -- ai function for super centipede's freezing attack
@@ -73,10 +79,10 @@ end
 
 -- create a new type of super centipede
 clone_object{
-	name = "testmod.super_centipede",
+	name = "$mod.super_centipede",
 	base_object = "centipede",
 	ui_name = "Super Centipede",
-	model_material = "testmod.test_material",
+	model_material = "$mod.test_material",
 	mob_speed = 5,
 	mob_damage_easy = 3,
 	mob_damage = 4,
@@ -101,7 +107,7 @@ clone_object{
 
 -- define a new ability with a custom icon
 def_ability{
-	name = "testmod.flip_coin",
+	name = "$mod.flip_coin",
 	ui_name = "Flip Coin",
 	ability_type = "b",
 	item_icon = 0,
@@ -114,7 +120,7 @@ def_ability{
 		if confirm_use_item(mob, item_name, "Flip It!") then
 			spend_item(mob, item_name)
 
-			if shb_random_int(1, 2) == 1 or is_power_activated2(mob, "testmod.flip_coin_lucky") then
+			if shb_random_int(1, 2) == 1 or is_power_activated2(mob, "$mod.flip_coin_lucky") then
 				add_damage_text("Heads!", mob)
 			else
 				add_damage_text("Tails!", mob)
@@ -126,7 +132,7 @@ def_ability{
 
 -- define a new type of weapon
 def_weapon{
-	name = "testmod.shovel",
+	name = "$mod.shovel",
 	ui_name = "Shovel",
 	item_icon = 1,
 	icon_texture = load_texture("mod_data/textures/items.png", "rgba8"),
@@ -139,9 +145,9 @@ def_weapon{
 	powers = { power_damage_bonus(1, 1) },
 }
 
--- the object attached to wielder's hand when the weapon 'testmod.shovel' is equipped
+-- the object attached to wielder's hand when the weapon '$mod.shovel' is equipped
 def_object{
-	name = "testmod.shovel_attachment",
+	name = "$mod.shovel_attachment",
 	model = "data/models/dagger.fbx",
 	model_can_emit_particles = true,
 	editor_ignore_asset = true,
@@ -149,7 +155,7 @@ def_object{
 
 -- define a new type of armor
 def_armor{
-	name = "testmod.t_shirt",
+	name = "$mod.t_shirt",
 	ui_name = "T-Shirt",
 	item_icon = 95,
 	armor_health_bonus = 1,
@@ -160,7 +166,7 @@ def_armor{
 
 -- define a new type of accessory
 def_accessory{
-	name = "testmod.necklace",
+	name = "$mod.necklace",
 	ui_name = "Necklace",
 	item_icon = 9,
 	price = 50,
@@ -170,7 +176,7 @@ def_accessory{
 
 -- define a new type of consumable
 def_consumable{
-	name = "testmod.chewing_gum",
+	name = "$mod.chewing_gum",
 	ui_name = "Magic Chewing Gum of Summoning",
 	item_icon = 5,
 	range = 5,
@@ -194,7 +200,7 @@ def_consumable{
 -- make alterations to the world map
 register_global_hook("on_enter_world_map", function(map)
 	local site = spawn("map_herb_plant", map, 0, 0, 0)
-	register_named_obj(map, site, "testmod.test_site")
+	register_named_obj(map, site, "$mod.test_site")
 	set_world_pos3(site, 103.9435, 1.2914, -129.9235)
 	set_world_rot_euler(site, 0.0, math.rad(39,4243), 0.0)
 	set_obj_scale3(site, 0.45, 0.45, 0.45)

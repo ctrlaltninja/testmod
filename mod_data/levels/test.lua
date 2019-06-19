@@ -2,7 +2,7 @@ lever_pulled = false
 
 function on_init_map()
 	-- add a temporary ability for the first hero
-	set_inventory(party[1].inventory, "testmod.flip_coin", 1)
+	set_inventory(party[1].inventory, "ctrl_alt_ninja_testmod.flip_coin", 1)
 end
 
 function on_toggle_lever(mob, lever)
